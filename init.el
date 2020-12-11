@@ -41,12 +41,32 @@
 ;;display lines
 (add-hook 'prog-mode-hook 'global-display-line-numbers-mode)
 
+(auto-insert-mode)
+(eval-after-load 'autoinsert
+  '(define-auto-insert
+     '("\\.\\(CC?\\|cc\\|cxx\\|cpp\\|c++\\)\\'" . "C++ skeleton")
+     '("Short description: "
+       "/*" \n
+       (file-name-nondirectory (buffer-file-name))
+       " -- " str \n
+       "Written on " (format-time-string "%A, %e %B %Y.") \n
+       " */" > \n \n
+       "#include <iostream>" \n 
+       "#include <algorithm>" \n
+       "#include <vector>" \n 
+       "#include <string>" \n \n
+       "using namespace std;" \n \n
+       "main()" \n
+       "{" \n
+       > _ \n
+       "}" > \n)))
+
 ;; automatic insertion of templates
-(require 'autoinsert)
-(auto-insert-mode)  ;;; Adds hook to find-files-hook
-(setq auto-insert-directory "C:/Users/erikw/Documents/c++/template/") ;;; *NOTE* Trailing slash important
+;(require 'autoinsert)
+;(auto-insert-mode)  ;;; Adds hook to find-files-hook
+;(setq auto-insert-directory "/C:/Users/erikw/") ;;; *NOTE* Trailing slash important
 ;;(setq auto-insert-query nil) ;;; If you don't want to be prompted before insertion
-(define-auto-insert "\.cpp" "template.cpp")
+;(define-auto-insert "\.cpp" "test.cpp")
 
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -67,3 +87,15 @@
 (define-key key-translation-map [(control meta ?9)] [?\]])
 (define-key key-translation-map [(control meta ?0)] [?\}])
 (define-key key-translation-map [(control meta ?ß)] [?\\])
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
